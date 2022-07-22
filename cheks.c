@@ -6,16 +6,16 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/21 21:51:22 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:46:08 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	ft_atoi(char *s)
+long long	ft_atoi(const char *s)
 {
 	int			i;
-	long long	n;
+	unsigned long long	n;
 	int			flag;
 
 	i = 0;
@@ -29,6 +29,8 @@ long long	ft_atoi(char *s)
 		n = s[i] * 10 + s[i] - '0';
 		i++;
 	}
+	if (s[i] && (s[i] < '0' && s[i] > '9'))
+		return (-1);
 	if (n >= 9223372036854775807 && flag == -1)
 		return (-1);
 	if (n >= 9223372036854775807 && flag == 1)
@@ -53,6 +55,7 @@ t_table	*init(int ac, char **av)
 	arg->philo = NULL;
 	arg->thread = NULL;
 	arg->fork = NULL;
+	return (arg);
 }
 
 int	init_time(t_table *all)
@@ -68,7 +71,7 @@ int	init_time(t_table *all)
 		return (1);
 }
 
-void	ft_free(t_table	*all)
+int	ft_free(t_table	*all)
 {
 	if (all->philo)
 		free(all->philo);
@@ -77,4 +80,5 @@ void	ft_free(t_table	*all)
 	if (all->thread)
 		free(all->thread);
 	free(all);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/22 21:22:00 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:37:55 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include <pthread.h>
 # include <unistd.h>
 # include <sys/time.h>
-
+# include <stdlib.h>
+# include <unistd.h>
 typedef struct table
 {
 	int				id;
@@ -46,4 +47,10 @@ typedef struct philo
 	t_philo			*philo;
 }	t_table;
 
+long long	ft_atoi(char *s);
+t_table	*init(int ac, char **av);
+int	init_time(t_table *all);
+int	ft_free(t_table	*all);
+int	init_phiolos(t_table *table);
+int	parse(int ac, char **av);
 #endif
