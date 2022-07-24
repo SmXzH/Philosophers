@@ -6,36 +6,39 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/22 21:46:08 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:34:04 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	ft_atoi(const char *s)
+long long	ft_atoi(const char *str)
 {
-	int			i;
-	unsigned long long	n;
-	int			flag;
+	int					i;
+	int					flag;
+	unsigned long long	nbr;
 
 	i = 0;
-	flag = 0;
-	if (s[i] == '-')
-		flag = -1;
-	if (s[i] == '+' || s[i] == '-')
+	nbr = 0;
+	flag = 1;
+	while ((str[i] > 8 && str[i] < 14) || str[i] == 32)
 		i++;
-	while (s[i] >= 0 && s[i] <= '9')
+	if (str[i] == '-')
+		flag = -1;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		n = s[i] * 10 + s[i] - '0';
+		nbr = nbr * 10 + str[i] - '0';
 		i++;
 	}
-	if (s[i] && (s[i] < '0' && s[i] > '9'))
+	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
-	if (n >= 9223372036854775807 && flag == -1)
+	if (flag == 1 && nbr >= 2147483648)
 		return (-1);
-	if (n >= 9223372036854775807 && flag == 1)
+	if (flag == -1 && nbr >= 2147483648)
 		return (0);
-	return (n * flag);
+	return (nbr * flag);
 }
 
 t_table	*init(int ac, char **av)
@@ -69,6 +72,7 @@ int	init_time(t_table *all)
 	all->thread = malloc(sizeof(pthread_t) * all->count_philo);
 	if (!all->thread)
 		return (1);
+	return (0);
 }
 
 int	ft_free(t_table	*all)

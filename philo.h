@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/22 21:37:55 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/07/24 15:34:09 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct table
 	int				how_many_eat;
 	int				left;
 	int				right;
-	//long long		time_start;
 	long long		last_eat;
 	struct philo	*arg;
 }	t_philo;
@@ -47,7 +46,7 @@ typedef struct philo
 	t_philo			*philo;
 }	t_table;
 
-long long	ft_atoi(char *s);
+long long	ft_atoi(const char *str);
 t_table	*init(int ac, char **av);
 int	init_time(t_table *all);
 int	ft_free(t_table	*all);
