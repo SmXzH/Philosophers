@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/24 15:34:09 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/07/26 23:04:31 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ int	init_time(t_table *all);
 int	ft_free(t_table	*all);
 int	init_phiolos(t_table *table);
 int	parse(int ac, char **av);
+void	*rutune(void *ph);
 #endif

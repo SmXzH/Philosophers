@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/22 21:29:25 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:51:41 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,16 @@ int	init_phiolos(t_table *table)
 	}
 	return (0);
 }
+
+//int destoriy(t_table *all)
+//{
+//	int	i;
+
+//	i = 0;
+//	while (i < all->count_lanch)
+//	{
+//		if (pthread_mutex_destroy(&all->fork[i++]));
+//			return (1);
+//	}
+//	return (0);
+//}
