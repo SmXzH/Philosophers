@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cheks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/24 15:34:04 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/08/04 22:45:44 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	ft_atoi(const char *str)
+long long		ft_atoi(const char *str)
 {
 	int					i;
 	int					flag;

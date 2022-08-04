@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/26 22:51:41 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/08/04 19:10:30 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ int	init_phiolos(t_table *table)
 			return (1);
 	}
 	return (0);
+}
+
+long long get_timestamp()
+{
+	struct timeval time;
+	long long now;
+	gettimeofday(&time, NULL);
+	now = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	return(now);
 }
 
 //int destoriy(t_table *all)

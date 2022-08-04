@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/07/26 23:04:31 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/08/04 21:55:46 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <unistd.h>
-# include <sys/time.h>
+# include <sys/time.h> //gettimeofday()
 # include <stdlib.h>
 # include <unistd.h>
 typedef struct table
 {
 	int				id;
+	long long		time_start;
 	int				time_to_eat;
 	int				time_to_sleap;
 	int				time_to_die;
@@ -52,5 +53,11 @@ int	init_time(t_table *all);
 int	ft_free(t_table	*all);
 int	init_phiolos(t_table *table);
 int	parse(int ac, char **av);
-void	*rutune(void *ph);
+long long get_timestamp();
+void	print_philo(t_table *table, t_philo *philo, char *str);
+void	*thinking(t_table *table, t_philo *philo);
+void	*sleepeng(t_table *table, t_philo *philo);
+void	*eating(t_table *tb, t_philo *philo);
+void ft_usleep(int time_ms);
+
 #endif
