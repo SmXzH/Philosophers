@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/04 22:45:44 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/04 23:16:08 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	init_time(t_table *all)
 	all->fork = malloc(sizeof(pthread_mutex_t) * all->count_philo);
 	if (!all->fork)
 		return (1);
-	all->thread = malloc(sizeof(pthread_t) * all->count_philo);
+	all->thread = malloc(sizeof(pthread_t) * (all->count_philo + 1));
+	printf("philos = %d\n", all->count_philo);
 	if (!all->thread)
 		return (1);
 	return (0);

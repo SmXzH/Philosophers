@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/04 19:10:30 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/04 23:17:57 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	init_phiolos(t_table *table)
 	int	i;
 
 	i = 0;
+	printf("cnt: %d\n", table->count_philo);
 	while (i < table->count_philo)
 	{
 		table->philo[i].id = i + 1;

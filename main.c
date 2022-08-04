@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/04 22:53:09 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/04 23:29:48 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ int	philo_life(t_table *ph)
 		ph->philo[i].time_start = ph->time_start;
 		ph->philo[i].last_eat = ph->time_start;
 	}
-	printf("HIIHIH\n");
+	
 	i = -1;
+	printf("pg = %d\n", ph->count_philo);
 	while (++i < ph->count_philo)
 		pthread_create(&ph->thread[i], NULL, &start, &ph->philo[i]);
 	i = -1;
@@ -78,7 +79,8 @@ int	main(int ac, char **av)
 		return (ft_free(all));
 	if (init_time(all))
 		return (ft_free(all));
-	printf("1\n");
+	if(init_phiolos(all))
+		return(ft_free(all));
 	philo_life(all);
 	return (0);
 }
