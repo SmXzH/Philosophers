@@ -6,11 +6,13 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 22:44:59 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/04 22:04:55 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/05 00:18:43 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+//Why? cuz usleep taking more time that i need cuz cpu taked time for compile time and taking more;
 
 void ft_usleep(int time_ms)
 {
@@ -26,6 +28,8 @@ void ft_usleep(int time_ms)
 	
 }
 
+//Printing what philosopher doing
+
 void	print_philo(t_table *table, t_philo *philo, char *str)
 {
 	int	i;
@@ -35,18 +39,22 @@ void	print_philo(t_table *table, t_philo *philo, char *str)
 	pthread_mutex_unlock(&table->print);
 }
 
-void	*thinking(t_table *table, t_philo *philo)
+void	thinking(t_table *table, t_philo *philo)
 {
+	if (table->flg_of_dead)
+		return ;
 	print_philo(table, philo, "He thinking");
 }
 
-void	*sleepeng(t_table *table, t_philo *philo)
+void	sleepeng(t_table *table, t_philo *philo)
 {
+	if (table->flg_of_dead)
+		return ;
 	print_philo(table, philo, "He sleepeng");
-	ft_usleep(50); //need own funciton
+	ft_usleep(50);
 }
 
-void	*eating(t_table *tb, t_philo *philo)
+int	eating(t_table *tb, t_philo *philo)
 {
 	pthread_mutex_lock(&tb->fork[philo->left]);
 	print_philo(tb, philo, "taked fork");

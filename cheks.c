@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/04 23:16:08 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/05 00:08:20 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_table	*init(int ac, char **av)
 	arg->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		arg->count_lanch = ft_atoi(av[5]);
+	arg->flg_of_dead = 0;
 	pthread_mutex_init(&arg->print, NULL);
 	arg->philo = NULL;
 	arg->thread = NULL;

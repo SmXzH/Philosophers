@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/04 23:17:57 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/05 00:19:29 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	init_phiolos(t_table *table)
 	int	i;
 
 	i = 0;
-	printf("cnt: %d\n", table->count_philo);
 	while (i < table->count_philo)
 	{
 		table->philo[i].id = i + 1;
@@ -52,15 +51,15 @@ long long get_timestamp()
 	return(now);
 }
 
-//int destoriy(t_table *all)
-//{
-//	int	i;
+int destoriy(t_table *all)
+{
+	int	i;
 
-//	i = 0;
-//	while (i < all->count_lanch)
-//	{
-//		if (pthread_mutex_destroy(&all->fork[i++]));
-//			return (1);
-//	}
-//	return (0);
-//}
+	i = 0;
+	while (i < all->count_lanch)
+	{
+		if (pthread_mutex_destroy(&all->fork[i++]))
+			return (1);
+	}
+	return (0);
+}
