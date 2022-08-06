@@ -6,11 +6,13 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/05 00:19:29 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/05 17:18:38 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+// Inicialization stuctures of philosopher
 
 int	init_phiolos(t_table *table)
 {
@@ -42,6 +44,9 @@ int	init_phiolos(t_table *table)
 	return (0);
 }
 
+//geting current time
+//struct timeval ... {time_t tv_sec(seconds); tv_usec(microseconds)}
+
 long long get_timestamp()
 {
 	struct timeval time;
@@ -50,6 +55,8 @@ long long get_timestamp()
 	now = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 	return(now);
 }
+
+//Destoing mutexs;
 
 int destoriy(t_table *all)
 {

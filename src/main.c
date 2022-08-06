@@ -6,11 +6,13 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/05 17:11:02 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/06 20:00:59 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+//Check: Philo dead or not
 
 void	*near_to_die(void *tmp)
 {
@@ -32,13 +34,15 @@ void	*near_to_die(void *tmp)
 			{
 				table->flg_of_dead = 1;
 				pthread_mutex_lock(&table->print);
-				printf("%lld %d" YEL " is died\n", get_timestamp() - philo->time_start, philo->id);
+				printf("%lld %d" YEL " is died\n" RESET, get_timestamp() - philo->time_start, philo->id);
 				return(NULL);
 			}
 		}
 	}
 	return(NULL);
 }
+
+// Parse arguments
 
 int	parse(int ac, char **av)
 {
@@ -66,7 +70,7 @@ void *start(void *ag)
 	table = philo->arg;
 	if (philo->id % 2 == 0)
 	{
-		print_philo(table, philo, "he thinking");
+		print_philo(table, philo,GRN"He thinking"RESET);
 		ft_usleep(50);
 	}
 	while (!table->flg_of_dead)
@@ -74,6 +78,8 @@ void *start(void *ag)
 		if(table->count_lanch)
 			if (philo->how_many_eat == table->count_lanch)
 				return (NULL);
+		if(eating(table, philo))
+			return(NULL);
 		eating(table, philo);
 		thinking(table, philo);
 	}
@@ -82,7 +88,7 @@ void *start(void *ag)
 
 int	philo_life(t_table *ph)
 {
-	//pthread_t check;
+	pthread_t check;
 	int	i;
 	
 	i = -1;
@@ -96,6 +102,9 @@ int	philo_life(t_table *ph)
 	i = -1;
 	while (++i < ph->count_philo)
 		pthread_create(&ph->thread[i], NULL, &start, &ph->philo[i]);
+	pthread_create(&check, NULL, &near_to_die, ph);
+	pthread_mutex_unlock(&ph->print);
+	pthread_join(check, NULL);
 	i = -1;
 	while (++i < ph->count_philo)
 		pthread_join(ph->thread[i], NULL);
@@ -105,7 +114,6 @@ int	philo_life(t_table *ph)
 int	main(int ac, char **av)
 {
 	t_table	*all;
-	int	i = -1;
 
 	if (parse(ac, av))
 		return (1);
@@ -117,5 +125,7 @@ int	main(int ac, char **av)
 	if(init_phiolos(all))
 		return(ft_free(all));
 	philo_life(all);
+	destoriy(all);
+	free(all);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/05 00:18:51 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/06 18:49:22 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+#define WHITE   "\033[37m"      /* White */
 #define RED  "\x1B[31m"
 #define GRN  "\x1B[32m"
 #define YEL  "\x1B[33m"
+#define RESET   "\033[0m"
+#define BLUE    "\033[34m"      /* Blue */
+#define CYAN    "\033[36m"      /* Cyan */
+#define MAGENTA "\033[35m"      /* Magenta */
 
 typedef struct table
 {
@@ -65,5 +70,6 @@ void	thinking(t_table *table, t_philo *philo);
 void	sleepeng(t_table *table, t_philo *philo);
 int	eating(t_table *tb, t_philo *philo);
 void ft_usleep(int time_ms);
+int destoriy(t_table *all);
 
 #endif
