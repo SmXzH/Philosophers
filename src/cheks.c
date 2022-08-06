@@ -6,7 +6,7 @@
 /*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/05 00:08:20 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/06 21:15:49 by sam              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	init_time(t_table *all)
 	if (!all->fork)
 		return (1);
 	all->thread = malloc(sizeof(pthread_t) * (all->count_philo + 1));
-	printf("philos = %d\n", all->count_philo);
 	if (!all->thread)
 		return (1);
 	return (0);

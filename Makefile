@@ -32,6 +32,7 @@ END		=	\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 	@echo "$(GRN)\n\t $(NAME) is complited \n $(END)"
 
 %.o: %.c $(INCLUDE)$(HEAD)
