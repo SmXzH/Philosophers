@@ -10,7 +10,7 @@ HEAD	= philo.h
 
 CC		= gcc
 
-FLAGS	= -Wall -Wextra -Werror #-fsanitize=thread
+FLAGS	= -Wall -Wextra -Werror -g -fsanitize=thread
 
 #COLORS
 #------------------------------------------------------------------

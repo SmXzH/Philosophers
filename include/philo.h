@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/06 18:49:22 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/10 21:06:44 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #define CYAN    "\033[36m"      /* Cyan */
 #define MAGENTA "\033[35m"      /* Magenta */
 
-typedef struct table
+typedef struct philo
 {
 	int				id;
 	long long		time_start;
@@ -40,10 +40,10 @@ typedef struct table
 	int				left;
 	int				right;
 	long long		last_eat;
-	struct philo	*arg;
+	struct table	*arg;
 }	t_philo;
 
-typedef struct philo
+typedef struct table
 {
 	int				count_philo;
 	int				time_to_die;
@@ -53,8 +53,11 @@ typedef struct philo
 	int				flg_of_dead;
 	long long		time_start;
 	pthread_t		*thread;
-	pthread_mutex_t	*fork;
+	pthread_mutex_t dead;
+	pthread_mutex_t *fork;
 	pthread_mutex_t	print;
+	pthread_mutex_t	many_eat;
+	pthread_mutex_t	eat;
 	t_philo			*philo;
 }	t_table;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cheks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/06 21:15:49 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/10 21:07:16 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ t_table	*init(int ac, char **av)
 		arg->count_lanch = ft_atoi(av[5]);
 	arg->flg_of_dead = 0;
 	pthread_mutex_init(&arg->print, NULL);
+	pthread_mutex_init(&arg->dead, NULL);
+	pthread_mutex_init(&arg->eat, NULL);
+	pthread_mutex_init(&arg->many_eat, NULL);
 	arg->philo = NULL;
 	arg->thread = NULL;
 	arg->fork = NULL;
