@@ -6,26 +6,28 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 22:44:59 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/10 21:16:56 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/08/15 21:22:10 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-//Why? cuz usleep taking more time that i need cuz cpu taked time for compile time and taking more;
+//Why? cuz usleep taking more time that i need cuz cpu taked time for
+//compile time and taking more;
 
-void ft_usleep(int time_ms)
+void	ft_usleep(int time_ms)
 {
-	struct timeval now;
-	struct timeval start;
+	struct timeval	now;
+	struct timeval	start;
+
 	gettimeofday(&now, NULL);
 	gettimeofday(&start, NULL);
-	while (((now.tv_sec - start.tv_sec) * 1000) + ((now.tv_usec - start.tv_usec) / 1000) <= time_ms)
+	while (((now.tv_sec - start.tv_sec) * 1000)
+		+((now.tv_usec - start.tv_usec) / 1000) <= time_ms)
 	{
 		usleep(50);
 		gettimeofday(&now, NULL);
 	}
-	
 }
 
 //Printing what philosopher doing
@@ -73,6 +75,9 @@ int	eating(t_table *tb, t_philo *philo)
 	pthread_mutex_unlock(&tb->dead);
 	pthread_mutex_lock(&tb->fork[philo->left]);
 	print_philo(tb, philo, BLUE"Taked fork"RESET);
+	if (tb->count_philo == 1)
+		return (pthread_mutex_unlock(\
+			&tb->fork[tb->philo->left]), 1);
 	pthread_mutex_lock(&tb->fork[philo->right]);
 	print_philo(tb, philo, BLUE"Taked fork"RESET);
 	print_philo(tb, philo, MAGENTA"He eating"RESET);
@@ -85,5 +90,5 @@ int	eating(t_table *tb, t_philo *philo)
 	ft_usleep(philo->time_to_eat);
 	pthread_mutex_unlock(&tb->fork[philo->left]);
 	pthread_mutex_unlock(&tb->fork[philo->right]);
-	return(0);
+	return (0);
 }

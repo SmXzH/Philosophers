@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sam <sam@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/05 17:18:38 by sam              ###   ########.fr       */
+/*   Updated: 2022/08/15 20:52:20 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	init_phiolos(t_table *table)
 	i = 0;
 	while (i < table->count_lanch)
 	{
-		if (pthread_mutex_init(&table->fork[i++],NULL))
+		if (pthread_mutex_init(&table->fork[i++], NULL))
 			return (1);
 	}
 	return (0);
@@ -47,18 +47,19 @@ int	init_phiolos(t_table *table)
 //geting current time
 //struct timeval ... {time_t tv_sec(seconds); tv_usec(microseconds)}
 
-long long get_timestamp()
+long long	get_timestamp(void)
 {
-	struct timeval time;
-	long long now;
+	struct timeval	time;
+	long long		now;
+
 	gettimeofday(&time, NULL);
 	now = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-	return(now);
+	return (now);
 }
 
 //Destoing mutexs;
 
-int destoriy(t_table *all)
+int	destoriy(t_table *all)
 {
 	int	i;
 

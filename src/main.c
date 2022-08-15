@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/10 21:14:12 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/08/15 21:14:51 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	*near_to_die(void *tmp)
 {
 	t_table	*table;
 	t_philo	*philo;
-	int	i;
-	int count;
+	int		i;
+	int		count;
 
 	table = tmp;
 	philo = table->philo;
@@ -31,7 +31,7 @@ void	*near_to_die(void *tmp)
 			pthread_mutex_lock(&table->many_eat);
 			count = philo->how_many_eat;
 			pthread_mutex_unlock(&table->many_eat);
-			if(table->count_lanch)
+			if (table->count_lanch)
 				if (count == table->count_lanch)
 					return (NULL);
 			pthread_mutex_lock(&table->eat);
@@ -43,12 +43,13 @@ void	*near_to_die(void *tmp)
 				table->flg_of_dead = 1;
 				pthread_mutex_unlock(&table->dead);
 				pthread_mutex_lock(&table->print);
-				printf("%lld %d" YEL " is died\n" RESET, get_timestamp() - philo->time_start, philo->id);
-				return(NULL);
+				printf("%lld %d" YEL " is died\n" RESET, get_timestamp()
+					- philo->time_start, philo->id);
+				return (NULL);
 			}
 		}
 	}
-	return(NULL);
+	return (NULL);
 }
 
 // Parse arguments
@@ -70,17 +71,17 @@ int	parse(int ac, char **av)
 	return (0);
 }
 
-void *start(void *ag)
+void	*start(void *ag)
 {
-	t_philo *philo;
-	t_table *table;
-	int sv_dead;
+	t_philo	*philo;
+	t_table	*table;
+	int		sv_dead;
 
 	philo = (t_philo *)ag;
 	table = philo->arg;
 	if (philo->id % 2 == 0)
 	{
-		print_philo(table, philo,GRN"He thinking"RESET);
+		print_philo(table, philo, GRN "He thinking"RESET);
 		ft_usleep(50);
 	}
 	pthread_mutex_lock(&table->dead);
@@ -88,11 +89,11 @@ void *start(void *ag)
 	pthread_mutex_unlock(&table->dead);
 	while (!sv_dead)
 	{
-		if(table->count_lanch)
+		if (table->count_lanch)
 			if (philo->how_many_eat == table->count_lanch)
 				return (NULL);
-		if(eating(table, philo))
-			return(NULL);
+		if (eating(table, philo))
+			return (NULL);
 		eating(table, philo);
 		thinking(table, philo);
 		pthread_mutex_lock(&table->dead);
@@ -104,9 +105,9 @@ void *start(void *ag)
 
 int	philo_life(t_table *ph)
 {
-	pthread_t check;
-	int	i;
-	
+	pthread_t	check;
+	int			i;
+
 	i = -1;
 	ph->time_start = get_timestamp();
 	while (++i < ph->count_philo)
@@ -114,7 +115,6 @@ int	philo_life(t_table *ph)
 		ph->philo[i].time_start = ph->time_start;
 		ph->philo[i].last_eat = ph->time_start;
 	}
-	
 	i = -1;
 	while (++i < ph->count_philo)
 		pthread_create(&ph->thread[i], NULL, &start, &ph->philo[i]);
@@ -138,8 +138,8 @@ int	main(int ac, char **av)
 		return (ft_free(all));
 	if (init_time(all))
 		return (ft_free(all));
-	if(init_phiolos(all))
-		return(ft_free(all));
+	if (init_phiolos(all))
+		return (ft_free(all));
 	philo_life(all);
 	destoriy(all);
 	free(all);

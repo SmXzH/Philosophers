@@ -6,13 +6,13 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/10 21:07:16 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/08/15 20:52:32 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long		ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	int					i;
 	int					flag;
