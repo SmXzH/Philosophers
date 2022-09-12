@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/12 14:47:00 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:10:22 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		thinking(t_table *table, t_philo *philo);
 void		sleepeng(t_table *table, t_philo *philo);
 int			eating(t_table *tb, t_philo *philo);
 void		ft_usleep(int time_ms);
-int			destoriy(t_table *all);
+int			destroy_mutex(t_table *all);
 int			ft_free(t_table *all);
 
 #endif

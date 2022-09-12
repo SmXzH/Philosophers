@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/12 15:00:37 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:06:24 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ int	main(int ac, char **av)
 	if (init_phiolos(all))
 		return (ft_free(all));
 	philo_life(all);
-	destoriy(all);
+	printf("HELLLLLLLOOOOOO\n");
+	destroy_mutex(all);
 	ft_free(all);
 	return (0);
 }
