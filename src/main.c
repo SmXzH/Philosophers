@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/15 21:14:51 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:00:37 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	*near_to_die(void *tmp)
 	t_table	*table;
 	t_philo	*philo;
 	int		i;
-	int		count;
 
 	table = tmp;
 	philo = table->philo;
@@ -28,22 +27,14 @@ void	*near_to_die(void *tmp)
 		i = -1;
 		while (++i < table->count_philo)
 		{			
-			pthread_mutex_lock(&table->many_eat);
-			count = philo->how_many_eat;
-			pthread_mutex_unlock(&table->many_eat);
 			if (table->count_lanch)
-				if (count == table->count_lanch)
+				if (philo->how_many_eat == table->count_lanch)
 					return (NULL);
-			pthread_mutex_lock(&table->eat);
-			count = philo[i].last_eat;
-			pthread_mutex_unlock(&table->eat);
-			if (get_timestamp() - count > philo[i].time_to_die)
+			if (get_timestamp() - philo[i].last_eat > philo[i].time_to_die)
 			{
-				pthread_mutex_lock(&table->dead);
 				table->flg_of_dead = 1;
-				pthread_mutex_unlock(&table->dead);
 				pthread_mutex_lock(&table->print);
-				printf("%lld %d" YEL " is died\n" RESET, get_timestamp()
+				printf("%lld %d" RED " is died\n" RESET, get_timestamp()
 					- philo->time_start, philo->id);
 				return (NULL);
 			}
@@ -75,7 +66,6 @@ void	*start(void *ag)
 {
 	t_philo	*philo;
 	t_table	*table;
-	int		sv_dead;
 
 	philo = (t_philo *)ag;
 	table = philo->arg;
@@ -84,21 +74,15 @@ void	*start(void *ag)
 		print_philo(table, philo, GRN "He thinking"RESET);
 		ft_usleep(50);
 	}
-	pthread_mutex_lock(&table->dead);
-	sv_dead = table->flg_of_dead;
-	pthread_mutex_unlock(&table->dead);
-	while (!sv_dead)
+	while (!table->flg_of_dead)
 	{
 		if (table->count_lanch)
 			if (philo->how_many_eat == table->count_lanch)
 				return (NULL);
 		if (eating(table, philo))
 			return (NULL);
-		eating(table, philo);
+		sleepeng(table, philo);
 		thinking(table, philo);
-		pthread_mutex_lock(&table->dead);
-		sv_dead = table->flg_of_dead;
-		pthread_mutex_unlock(&table->dead);
 	}
 	return (NULL);
 }
@@ -142,6 +126,6 @@ int	main(int ac, char **av)
 		return (ft_free(all));
 	philo_life(all);
 	destoriy(all);
-	free(all);
+	ft_free(all);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/15 20:52:32 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:47:18 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ t_table	*init(int ac, char **av)
 		arg->count_lanch = ft_atoi(av[5]);
 	arg->flg_of_dead = 0;
 	pthread_mutex_init(&arg->print, NULL);
-	pthread_mutex_init(&arg->dead, NULL);
-	pthread_mutex_init(&arg->eat, NULL);
-	pthread_mutex_init(&arg->many_eat, NULL);
 	arg->philo = NULL;
 	arg->thread = NULL;
 	arg->fork = NULL;
@@ -77,16 +74,4 @@ int	init_time(t_table *all)
 	if (!all->thread)
 		return (1);
 	return (0);
-}
-
-int	ft_free(t_table	*all)
-{
-	if (all->philo)
-		free(all->philo);
-	if (all->fork)
-		free(all->fork);
-	if (all->thread)
-		free(all->thread);
-	free(all);
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/15 20:52:20 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:35:11 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,16 @@ int	destoriy(t_table *all)
 			return (1);
 	}
 	return (0);
+}
+
+int	ft_free(t_table *all)
+{
+	if (all->philo)
+		free(all->philo);
+	if (all->fork)
+		free(all->fork);
+	if (all->thread)
+		free(all->thread);
+	free(all);
+	return (1);
 }

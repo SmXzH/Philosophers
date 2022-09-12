@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/08/15 21:27:49 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:47:00 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ typedef struct table
 	int				flg_of_dead;
 	long long		time_start;
 	pthread_t		*thread;
-	pthread_mutex_t	dead;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print;
-	pthread_mutex_t	many_eat;
-	pthread_mutex_t	eat;
 	t_philo			*philo;
 }	t_table;
 
@@ -74,5 +71,6 @@ void		sleepeng(t_table *table, t_philo *philo);
 int			eating(t_table *tb, t_philo *philo);
 void		ft_usleep(int time_ms);
 int			destoriy(t_table *all);
+int			ft_free(t_table *all);
 
 #endif
