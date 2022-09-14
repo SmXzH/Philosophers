@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 22:44:59 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/12 14:45:42 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:30:54 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,19 @@ void	ft_usleep(int time_ms)
 
 	start = get_timestamp();
 	while (get_timestamp() - start < time_ms)
-		usleep(100);
+		;
 }
 
 //Printing what philosopher doing
 
 void	print_philo(t_table *table, t_philo *philo, char *str)
 {
+	if (table->flg_of_dead)
+		return ;
 	pthread_mutex_lock(&table->print);
-	printf("%lld, %d,%s\n", get_timestamp() - philo->time_start, philo->id, str);
+	if (table->flg_of_dead)
+		return ;
+	printf("%lld %d %s\n", get_timestamp() - philo->time_start, philo->id, str);
 	pthread_mutex_unlock(&table->print);
 }
 
@@ -45,7 +49,7 @@ void	sleepeng(t_table *table, t_philo *philo)
 	if (table->flg_of_dead)
 		return ;
 	print_philo(table, philo, YEL"He sleepeng"RESET);
-	ft_usleep(table->time_to_die);
+	ft_usleep(table->time_to_sleep);
 }
 
 int	eating(t_table *tb, t_philo *philo)

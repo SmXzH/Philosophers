@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/12 15:06:24 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:34:24 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	*near_to_die(void *tmp)
 			{
 				table->flg_of_dead = 1;
 				pthread_mutex_lock(&table->print);
-				printf("%lld %d" RED " is died\n" RESET, get_timestamp()
-					- philo->time_start, philo->id);
+				printf("%lld %d" RED " is died\n" RESET,
+					get_timestamp() - philo->time_start, philo->id);
 				return (NULL);
 			}
 		}
@@ -72,7 +72,7 @@ void	*start(void *ag)
 	if (philo->id % 2 == 0)
 	{
 		print_philo(table, philo, GRN "He thinking"RESET);
-		ft_usleep(50);
+		usleep(50);
 	}
 	while (!table->flg_of_dead)
 	{
@@ -125,8 +125,7 @@ int	main(int ac, char **av)
 	if (init_phiolos(all))
 		return (ft_free(all));
 	philo_life(all);
-	printf("HELLLLLLLOOOOOO\n");
-	destroy_mutex(all);
+	ft_destroy_mutex(all);
 	ft_free(all);
 	return (0);
 }

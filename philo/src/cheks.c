@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/12 14:47:18 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:35:19 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ long long	ft_atoi(const char *str)
 	}
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
-	if (flag == 1 && nbr >= 2147483648)
+	if (flag == 1 && nbr >= 9223372036854775807u)
 		return (-1);
-	if (flag == -1 && nbr >= 2147483648)
+	if (flag == -1 && nbr >= 9223372036854775808u)
 		return (0);
 	return (nbr * flag);
 }
@@ -52,9 +52,11 @@ t_table	*init(int ac, char **av)
 	arg->time_to_die = ft_atoi(av[2]);
 	arg->time_to_eat = ft_atoi(av[3]);
 	arg->time_to_sleep = ft_atoi(av[4]);
+	arg->count_lanch = 0;
 	if (ac == 6)
 		arg->count_lanch = ft_atoi(av[5]);
 	arg->flg_of_dead = 0;
+	arg->time_start = 0;
 	pthread_mutex_init(&arg->print, NULL);
 	arg->philo = NULL;
 	arg->thread = NULL;

@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/12 15:11:04 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:25:48 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	init_phiolos(t_table *table)
 		i++;
 	}
 	i = 0;
-	while (i < table->count_lanch)
+	while (i < table->count_philo)
 		if (pthread_mutex_init(&table->fork[i++], NULL))
 			return (1);
 	return (0);
@@ -57,18 +57,15 @@ long long	get_timestamp(void)
 
 //Destoing mutexs;
 
-int	destroy_mutex(t_table *all)
+void	ft_destroy_mutex(t_table *all)
 {
 	int	i;
 
 	i = -1;
 	while (++i < all->count_philo)
-	{
 		if (pthread_mutex_destroy(&all->fork[i]))
 			printf("Error destroy mutex %d.\n", i);
-		pthread_mutex_destroy(&all->print);	
-	}
-	return (0);
+	pthread_mutex_destroy(&all->print);
 }
 
 int	ft_free(t_table *all)
