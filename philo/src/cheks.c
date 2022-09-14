@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/13 17:35:19 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:43:40 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,52 @@ long long	ft_atoi(const char *str)
 	return (nbr * flag);
 }
 
-t_table	*init(int ac, char **av)
-{
-	t_table	*arg;
+//geting current time
+//struct timeval ... {time_t tv_sec(seconds); tv_usec(microseconds)}
 
-	arg = malloc(sizeof(t_table));
-	if (!arg)
-		return (NULL);
-	arg->count_philo = ft_atoi(av[1]);
-	arg->time_to_die = ft_atoi(av[2]);
-	arg->time_to_eat = ft_atoi(av[3]);
-	arg->time_to_sleep = ft_atoi(av[4]);
-	arg->count_lanch = 0;
-	if (ac == 6)
-		arg->count_lanch = ft_atoi(av[5]);
-	arg->flg_of_dead = 0;
-	arg->time_start = 0;
-	pthread_mutex_init(&arg->print, NULL);
-	arg->philo = NULL;
-	arg->thread = NULL;
-	arg->fork = NULL;
-	return (arg);
+long long	get_timestamp(void)
+{
+	struct timeval	time;
+	long long		now;
+
+	gettimeofday(&time, NULL);
+	now = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	return (now);
 }
 
-int	init_time(t_table *all)
+//Destoing mutexs;
+
+void	ft_destroy_mutex(t_table *all)
 {
-	all->philo = malloc(sizeof(t_philo) * all->count_philo);
-	if (!all->philo)
-		return (1);
-	all->fork = malloc(sizeof(pthread_mutex_t) * all->count_philo);
-	if (!all->fork)
-		return (1);
-	all->thread = malloc(sizeof(pthread_t) * (all->count_philo + 1));
-	if (!all->thread)
-		return (1);
-	return (0);
+	int	i;
+
+	i = -1;
+	while (++i < all->count_philo)
+		if (pthread_mutex_destroy(&all->fork[i]))
+			printf("Error destroy mutex %d.\n", i);
+	pthread_mutex_destroy(&all->print);
+}
+
+int	ft_free(t_table *all)
+{
+	if (all->philo)
+		free(all->philo);
+	if (all->fork)
+		free(all->fork);
+	if (all->thread)
+		free(all->thread);
+	free(all);
+	return (1);
+}
+
+//Why? cuz usleep taking more time that i need cuz cpu taked time for
+//compile time and taking more;
+
+void	ft_usleep(int time_ms)
+{
+	long long	start;
+
+	start = get_timestamp();
+	while (get_timestamp() - start < time_ms)
+		;
 }

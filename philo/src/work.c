@@ -6,23 +6,11 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 22:44:59 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 17:30:54 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:43:30 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-//Why? cuz usleep taking more time that i need cuz cpu taked time for
-//compile time and taking more;
-
-void	ft_usleep(int time_ms)
-{
-	long long	start;
-
-	start = get_timestamp();
-	while (get_timestamp() - start < time_ms)
-		;
-}
 
 //Printing what philosopher doing
 

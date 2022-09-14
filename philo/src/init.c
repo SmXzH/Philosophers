@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 17:25:48 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:43:04 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,40 +42,39 @@ int	init_phiolos(t_table *table)
 	return (0);
 }
 
-//geting current time
-//struct timeval ... {time_t tv_sec(seconds); tv_usec(microseconds)}
-
-long long	get_timestamp(void)
+t_table	*init(int ac, char **av)
 {
-	struct timeval	time;
-	long long		now;
+	t_table	*arg;
 
-	gettimeofday(&time, NULL);
-	now = ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-	return (now);
+	arg = malloc(sizeof(t_table));
+	if (!arg)
+		return (NULL);
+	arg->count_philo = ft_atoi(av[1]);
+	arg->time_to_die = ft_atoi(av[2]);
+	arg->time_to_eat = ft_atoi(av[3]);
+	arg->time_to_sleep = ft_atoi(av[4]);
+	arg->count_lanch = 0;
+	if (ac == 6)
+		arg->count_lanch = ft_atoi(av[5]);
+	arg->flg_of_dead = 0;
+	arg->time_start = 0;
+	pthread_mutex_init(&arg->print, NULL);
+	arg->philo = NULL;
+	arg->thread = NULL;
+	arg->fork = NULL;
+	return (arg);
 }
 
-//Destoing mutexs;
-
-void	ft_destroy_mutex(t_table *all)
+int	init_time(t_table *all)
 {
-	int	i;
-
-	i = -1;
-	while (++i < all->count_philo)
-		if (pthread_mutex_destroy(&all->fork[i]))
-			printf("Error destroy mutex %d.\n", i);
-	pthread_mutex_destroy(&all->print);
-}
-
-int	ft_free(t_table *all)
-{
-	if (all->philo)
-		free(all->philo);
-	if (all->fork)
-		free(all->fork);
-	if (all->thread)
-		free(all->thread);
-	free(all);
-	return (1);
+	all->philo = malloc(sizeof(t_philo) * all->count_philo);
+	if (!all->philo)
+		return (1);
+	all->fork = malloc(sizeof(pthread_mutex_t) * all->count_philo);
+	if (!all->fork)
+		return (1);
+	all->thread = malloc(sizeof(pthread_t) * (all->count_philo + 1));
+	if (!all->thread)
+		return (1);
+	return (0);
 }
