@@ -6,11 +6,11 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 17:34:24 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 19:32:29 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 //Check: Philo dead or not
 
@@ -71,7 +71,7 @@ void	*start(void *ag)
 	table = philo->arg;
 	if (philo->id % 2 == 0)
 	{
-		print_philo(table, philo, GRN "He thinking"RESET);
+		print_philo(table, philo, GRN "is thinking"RESET);
 		usleep(50);
 	}
 	while (!table->flg_of_dead)

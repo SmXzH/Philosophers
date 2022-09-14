@@ -6,11 +6,11 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 18:43:40 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/14 19:34:01 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../include/philo.h"
 
 long long	ft_atoi(const char *str)
 {
@@ -88,5 +88,5 @@ void	ft_usleep(int time_ms)
 
 	start = get_timestamp();
 	while (get_timestamp() - start < time_ms)
-		;
+		usleep(100);
 }
