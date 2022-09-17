@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:31:01 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/13 17:32:32 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:43:43 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@
 typedef struct philo
 {
 	int				id;
-	long long		time_start;
 	int				time_to_eat;
 	int				time_to_sleap;
 	int				time_to_die;
 	int				how_many_eat;
 	int				left;
 	int				right;
+	long long		time_start;
 	long long		last_eat;
 	struct table	*arg;
 }	t_philo;
@@ -54,6 +54,9 @@ typedef struct table
 	long long		time_start;
 	pthread_t		*thread;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	eat;
+	pthread_mutex_t	dead;
+	pthread_mutex_t	six;
 	pthread_mutex_t	print;
 	t_philo			*philo;
 }	t_table;
@@ -72,5 +75,8 @@ int			eating(t_table *tb, t_philo *philo);
 void		ft_usleep(int time_ms);
 void		ft_destroy_mutex(t_table *all);
 int			ft_free(t_table *all);
+void		*hell(t_table *table, t_philo *philo);
+void		*check_dead(t_table *table, t_philo *pholo);
+void		hi_norminnate(t_table *tb, t_philo *philo);
 
 #endif

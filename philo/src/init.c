@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:07 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 18:48:03 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:43:57 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ t_table	*init(int ac, char **av)
 	arg->flg_of_dead = 0;
 	arg->time_start = 0;
 	pthread_mutex_init(&arg->print, NULL);
+	pthread_mutex_init(&arg->eat, NULL);
+	pthread_mutex_init(&arg->dead, NULL);
+	pthread_mutex_init(&arg->six, NULL);
 	arg->philo = NULL;
 	arg->thread = NULL;
 	arg->fork = NULL;
@@ -77,4 +80,28 @@ int	init_time(t_table *all)
 	if (!all->thread)
 		return (1);
 	return (0);
+}
+
+void	*hell(t_table *table, t_philo *philo)
+{
+	pthread_mutex_lock(&table->dead);
+	table->flg_of_dead = 1;
+	pthread_mutex_unlock(&table->dead);
+	pthread_mutex_lock(&table->print);
+	printf("%lld %d" RED " is died\n"RESET,
+		get_timestamp() - philo->time_start, philo->id);
+	pthread_mutex_unlock(&table->print);
+	return (NULL);
+}
+
+void	*check_dead(t_table *table, t_philo *philo)
+{
+	pthread_mutex_lock(&table->six);
+	if (philo->how_many_eat == table->count_lanch)
+	{
+		pthread_mutex_unlock(&table->six);
+		return (NULL);
+	}
+	pthread_mutex_unlock(&table->six);
+	return (NULL);
 }

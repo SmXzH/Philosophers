@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:37:03 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 19:34:01 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:23:02 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ void	ft_destroy_mutex(t_table *all)
 		if (pthread_mutex_destroy(&all->fork[i]))
 			printf("Error destroy mutex %d.\n", i);
 	pthread_mutex_destroy(&all->print);
+	pthread_mutex_destroy(&all->eat);
+	pthread_mutex_destroy(&all->dead);
+	pthread_mutex_destroy(&all->six);
 }
 
 int	ft_free(t_table *all)

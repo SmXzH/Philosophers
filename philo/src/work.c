@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 22:44:59 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 18:54:44 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:43:17 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,43 @@
 
 void	print_philo(t_table *table, t_philo *philo, char *str)
 {
-	if (table->flg_of_dead)
+	int	i;
+
+	pthread_mutex_lock(&table->dead);
+	i = table->flg_of_dead;
+	pthread_mutex_unlock(&table->dead);
+	if (i)
 		return ;
 	pthread_mutex_lock(&table->print);
-	if (table->flg_of_dead)
+	if (i)
+	{
+		pthread_mutex_unlock(&table->print);
 		return ;
+	}
 	printf("%lld %d %s\n", get_timestamp() - philo->time_start, philo->id, str);
 	pthread_mutex_unlock(&table->print);
 }
 
 void	thinking(t_table *table, t_philo *philo)
 {
-	if (table->flg_of_dead)
+	int	i;
+
+	pthread_mutex_lock(&table->dead);
+	i = table->flg_of_dead;
+	pthread_mutex_unlock(&table->dead);
+	if (i)
 		return ;
 	print_philo(table, philo, GRN"is thinking"RESET);
 }
 
 void	sleepeng(t_table *table, t_philo *philo)
 {
-	if (table->flg_of_dead)
+	int	i;
+
+	pthread_mutex_lock(&table->dead);
+	i = table->flg_of_dead;
+	pthread_mutex_unlock(&table->dead);
+	if (i)
 		return ;
 	print_philo(table, philo, YEL"is sleeping"RESET);
 	ft_usleep(table->time_to_sleep);
@@ -42,20 +60,40 @@ void	sleepeng(t_table *table, t_philo *philo)
 
 int	eating(t_table *tb, t_philo *philo)
 {
-	if (tb->flg_of_dead)
+	int	i;
+
+	pthread_mutex_lock(&tb->dead);
+	i = tb->flg_of_dead;
+	pthread_mutex_unlock(&tb->dead);
+	if (i)
 		return (1);
-	pthread_mutex_lock(&tb->fork[philo->left]);
+	if (philo->id == tb->count_philo)
+		pthread_mutex_lock(&tb->fork[philo->right]);
+	else
+		pthread_mutex_lock(&tb->fork[philo->left]);
 	print_philo(tb, philo, BLUE"has taken a fork"RESET);
 	if (tb->count_philo == 1)
 		return (pthread_mutex_unlock(\
 			&tb->fork[tb->philo->left]), 1);
-	pthread_mutex_lock(&tb->fork[philo->right]);
-	print_philo(tb, philo, BLUE"has taken a fork"RESET);
-	print_philo(tb, philo, MAGENTA"is eating"RESET);
-	philo->how_many_eat++;
-	philo->last_eat = get_timestamp();
-	ft_usleep(philo->time_to_eat);
+	if (philo->id == tb->count_philo)
+		pthread_mutex_lock(&tb->fork[philo->left]);
+	else
+		pthread_mutex_lock(&tb->fork[philo->right]);
+	hi_norminnate(tb, philo);
 	pthread_mutex_unlock(&tb->fork[philo->left]);
 	pthread_mutex_unlock(&tb->fork[philo->right]);
 	return (0);
+}
+
+void	hi_norminnate(t_table *tb, t_philo *philo)
+{
+	print_philo(tb, philo, BLUE"has taken a fork"RESET);
+	print_philo(tb, philo, MAGENTA"is eating"RESET);
+	pthread_mutex_lock(&tb->six);
+	philo->how_many_eat++;
+	pthread_mutex_unlock(&tb->six);
+	pthread_mutex_lock(&tb->eat);
+	philo->last_eat = get_timestamp();
+	pthread_mutex_unlock(&tb->eat);
+	ft_usleep(philo->time_to_eat);
 }

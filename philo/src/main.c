@@ -6,7 +6,7 @@
 /*   By: szhakypo <szhakypo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 21:30:54 by szhakypo          #+#    #+#             */
-/*   Updated: 2022/09/14 19:32:29 by szhakypo         ###   ########.fr       */
+/*   Updated: 2022/09/17 22:53:40 by szhakypo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,27 @@
 
 void	*near_to_die(void *tmp)
 {
-	t_table	*table;
-	t_philo	*philo;
-	int		i;
+	t_table			*table;
+	t_philo			*philo;
+	int				i;
+	long long int	test;
 
+	test = 0;
 	table = tmp;
 	philo = table->philo;
 	while (1)
 	{
 		i = -1;
 		while (++i < table->count_philo)
-		{			
+		{	
+			pthread_mutex_lock(&table->eat);
+			test = philo->last_eat;
+			pthread_mutex_unlock(&table->eat);
 			if (table->count_lanch)
-				if (philo->how_many_eat == table->count_lanch)
+				check_dead(table, philo);
+			if (get_timestamp() - test > philo[i].time_to_die)
+				if (hell(table, philo) == NULL)
 					return (NULL);
-			if (get_timestamp() - philo[i].last_eat > philo[i].time_to_die)
-			{
-				table->flg_of_dead = 1;
-				pthread_mutex_lock(&table->print);
-				printf("%lld %d" RED " is died\n" RESET,
-					get_timestamp() - philo->time_start, philo->id);
-				return (NULL);
-			}
 		}
 	}
 	return (NULL);
@@ -70,12 +69,11 @@ void	*start(void *ag)
 	philo = (t_philo *)ag;
 	table = philo->arg;
 	if (philo->id % 2 == 0)
-	{
-		print_philo(table, philo, GRN "is thinking"RESET);
-		usleep(50);
-	}
+		usleep(100);
+	pthread_mutex_lock(&table->dead);
 	while (!table->flg_of_dead)
 	{
+		pthread_mutex_unlock(&table->dead);
 		if (table->count_lanch)
 			if (philo->how_many_eat == table->count_lanch)
 				return (NULL);
@@ -83,7 +81,9 @@ void	*start(void *ag)
 			return (NULL);
 		sleepeng(table, philo);
 		thinking(table, philo);
+		pthread_mutex_lock(&table->dead);
 	}
+	pthread_mutex_unlock(&table->dead);
 	return (NULL);
 }
 
@@ -103,7 +103,6 @@ int	philo_life(t_table *ph)
 	while (++i < ph->count_philo)
 		pthread_create(&ph->thread[i], NULL, &start, &ph->philo[i]);
 	pthread_create(&check, NULL, &near_to_die, ph);
-	pthread_mutex_unlock(&ph->print);
 	pthread_join(check, NULL);
 	i = -1;
 	while (++i < ph->count_philo)
